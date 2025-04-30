@@ -41,4 +41,9 @@ public class UserServiceAction implements UserService{
         }
         return data;
     }
+
+     @Override
+    public void deleteById(Integer id) {
+        userRepository.deleteById(id);
+    }
 }

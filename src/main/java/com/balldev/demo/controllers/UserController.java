@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api")
@@ -48,4 +48,23 @@ public class UserController {
 
         return myUser;
     }
+
+    @DeleteMapping("/users/{id}")
+    public String deleteUser(@PathVariable int id){
+        User myUser = userService.findById(id);
+
+        if(myUser==null){
+            throw new RuntimeException("ไม่พบข้อมูลผู้ใช้รหัส" +id);
+        }
+
+        userService.deleteById(id);
+        return "ลบข้อมูลผู้ใช้รหัส"+id+"เรียบร้อยแล้ว";
+    }
+
+    @PutMapping("/users")
+    public User updateUser(@RequestBody User user) {
+        return userService.save(user);
+    }
 }
+
+
